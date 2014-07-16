@@ -7,6 +7,7 @@
   function noop() {}
 
   function _findById(id, onsuccessCB, onerrorCB) {
+    console.log("_findById " + id);
     var options = {
       filterBy: ['id'],
       filterOp: 'equals',
