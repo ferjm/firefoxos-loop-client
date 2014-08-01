@@ -9,7 +9,8 @@
 
   var _hangoutButton, _answerAudioButton, _answerVideoButton,
       _settingsButton, _settingsButtonVideo, _settingsButtonMute,
-      _settingsButtonSpeaker, _resumeButton, _title , _remoteVideo, _remoteImage;
+      _settingsButtonSpeaker, _resumeButton, _title, _callStatusInfo,
+      _remoteVideo, _remoteImage;
 
   function _updateUI(params) {
     var identities = params.identities.split(',');
@@ -108,6 +109,7 @@
       _resumeButton = document.getElementById('resume-button');
 
       _title = document.getElementById('contact-name-details');
+      _callStatusInfo = document.getElementById('call-status-info');
       _remoteVideo = document.getElementById('remote-video');
       _remoteImage = document.getElementById('fullscreen-image');
       
@@ -256,12 +258,17 @@
           CallManager.join(_isVideoEnabled);
           CallScreenUI.updateLocalVideo(_isVideoEnabled);
           break;
+        case 'connecting':
+          _callStatusInfo.textContent = 'Connecting';
+          _callStatusInfo.classList.add('connecting');
+          break;
         case 'connected':
           document.body.dataset.callStatus = 'connected';
+          _callStatusInfo.classList.remove('connecting');
+          _callStatusInfo.hidden = true;
           break;
         case 'disconnected':
           // TODO Styles not defined yet.
-
           break;
         case 'hold':
           document.body.dataset.callStatus = 'hold';
