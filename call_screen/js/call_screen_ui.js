@@ -134,14 +134,12 @@
           _showHitEffect(e.target.id, function() {
             _isVideoEnabled = !_isVideoEnabled;
             _settingsButtonVideo.classList.toggle('disabled');
-            // _toggleSettings(function() {
-              CallScreenUI.updateLocalVideo(
-                _isVideoEnabled,
-                function onUIUpdated() {
-                  CallManager.toggleVideo(_isVideoEnabled);
-                }
-              );
-            // });
+            CallScreenUI.updateLocalVideo(
+              _isVideoEnabled,
+              function onUIUpdated() {
+                CallManager.toggleVideo(_isVideoEnabled);
+              }
+            );
           });
         }
       );
@@ -153,7 +151,6 @@
             _settingsButtonMute.classList.toggle('disabled');
             _isMicEnabled = !_isMicEnabled;
             CallManager.toggleMic(_isMicEnabled);
-            // _toggleSettings();
           });
         }
       );
@@ -165,7 +162,6 @@
             _settingsButtonSpeaker.classList.toggle('enabled');
             _isSpeakerEnabled = !_isSpeakerEnabled;
             CallManager.toggleSpeaker(_isSpeakerEnabled);
-            // _toggleSettings();
           });
         }
       );
@@ -256,16 +252,14 @@
           document.body.dataset.callStatus = 'outgoing';
           _updateUI(params);
           CallManager.join(_isVideoEnabled);
+          _callStatusInfo.textContent = 'Calling...';
           CallScreenUI.updateLocalVideo(_isVideoEnabled);
           break;
         case 'connecting':
-          _callStatusInfo.textContent = 'Connecting';
-          _callStatusInfo.classList.add('connecting');
+          _callStatusInfo.textContent = 'Connecting...';
           break;
         case 'connected':
           document.body.dataset.callStatus = 'connected';
-          _callStatusInfo.classList.remove('connecting');
-          _callStatusInfo.hidden = true;
           break;
         case 'disconnected':
           // TODO Styles not defined yet.
